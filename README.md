@@ -10,4 +10,5 @@ composer require mobileia/mia-blog-mezzio
 ```php
     /** MIA BLOG **/
     $app->route('/mia-blog/list', [Mia\Blog\Handler\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.list');
+    $app->route('/mia-blog/category/list', [Mia\Blog\Handler\Category\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.category.list');
 ```
