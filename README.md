@@ -9,6 +9,8 @@ composer require mobileia/mia-blog-mezzio
 5. Agregando las rutas:
 ```php
     /** MIA BLOG **/
+    $app->route('/mia-blog/fetch/{id}', [Mia\Blog\Handler\FetchHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.fetch-by-id');
+    $app->route('/mia-blog/fetch-by-slug/{slug}', [Mia\Blog\Handler\FetchBySlugHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.fetch-by-slug');
     $app->route('/mia-blog/list', [Mia\Blog\Handler\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.list');
     $app->route('/mia-blog/category/list', [Mia\Blog\Handler\Category\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.category.list');
 ```
