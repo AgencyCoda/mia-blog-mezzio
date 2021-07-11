@@ -46,8 +46,8 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
         $item->slug = StringHelper::createSlug($item->title);
         $item->content = $this->getParam($request, 'content', '');
         $item->summary = $this->getParam($request, 'summary', '');
-        $item->photo_featured = $this->getParam($request, 'photo_featured', '');
-        $item->photo_featured_mobile = $this->getParam($request, 'photo_featured_mobile', '');
+        $item->photo_featured = $this->getParam($request, 'photo_featured', []);
+        $item->photo_featured_mobile = $this->getParam($request, 'photo_featured_mobile', []);
         $item->is_featured = intval($this->getParam($request, 'is_featured', '0'));
         $item->status = intval($this->getParam($request, 'status', '0'));
                 
