@@ -13,4 +13,5 @@ composer require mobileia/mia-blog-mezzio
     $app->route('/mia-blog/fetch-by-slug/{slug}', [Mia\Blog\Handler\FetchBySlugHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.fetch-by-slug');
     $app->route('/mia-blog/list', [Mia\Blog\Handler\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.list');
     $app->route('/mia-blog/category/list', [Mia\Blog\Handler\Category\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.category.list');
+    $app->route('/mia-blog/save', [\Mia\Auth\Handler\AuthHandler::class, new \Mia\Auth\Middleware\MiaRoleAuthMiddleware([MIAUser::ROLE_ADMIN]), Mia\Blog\Handler\Category\SaveHandler::class], ['POST', 'OPTIONS', 'HEAD'], 'mia-blog.save');
 ```
