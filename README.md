@@ -14,4 +14,5 @@ composer require mobileia/mia-blog-mezzio
     $app->route('/mia-blog/list', [Mia\Blog\Handler\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.list');
     $app->route('/mia-blog/category/list', [Mia\Blog\Handler\Category\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.category.list');
     $app->route('/mia-blog/save', [\Mia\Auth\Handler\AuthHandler::class, new \Mia\Auth\Middleware\MiaRoleAuthMiddleware([MIAUser::ROLE_ADMIN]), Mia\Blog\Handler\SaveHandler::class], ['POST', 'OPTIONS', 'HEAD'], 'mia-blog.save');
+    $app->route('/mia-blog/remove/{id}', [\Mia\Auth\Handler\AuthHandler::class, new \Mia\Auth\Middleware\MiaRoleAuthMiddleware([MIAUser::ROLE_ADMIN]), Mia\Blog\Handler\RemoveHandler::class], ['GET', 'DELETE', 'OPTIONS', 'HEAD'], 'mia-blog.remove');
 ```
