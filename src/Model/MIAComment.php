@@ -2,6 +2,8 @@
 
 namespace Mia\Blog\Model;
 
+use Mia\Auth\Model\MIAUser;
+
 /**
  * Description of Model
  * @property int $id Comment ID
@@ -51,6 +53,15 @@ class MIAComment extends \Illuminate\Database\Eloquent\Model
     protected $table = 'mia_post_comment';
 
     //protected $casts = ['photo_featured' => 'array', 'photo_featured_mobile' => 'array'];
+
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(MIAUser::class, 'user_id');
+    }
 
     /**
      * 
