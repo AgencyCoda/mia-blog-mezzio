@@ -18,4 +18,5 @@ composer require mobileia/mia-blog-mezzio
 
     $app->route('/mia-blog/comment/list', [Mia\Blog\Handler\Comment\ListHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.comment.list');
     $app->route('/mia-blog/comment/remove/{id}', [\Mia\Auth\Handler\AuthHandler::class, new \Mia\Auth\Middleware\MiaRoleAuthMiddleware([MIAUser::ROLE_ADMIN]), Mia\Blog\Handler\Comment\RemoveHandler::class], ['GET', 'DELETE', 'OPTIONS', 'HEAD'], 'mia-blog.comment.remove');
+    $app->route('/mia-blog/comment/save', [\Mia\Auth\Handler\AuthHandler::class, Mia\Blog\Handler\Comment\SaveHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-blog.comment.save');
 ```

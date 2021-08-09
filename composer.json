@@ -11,6 +11,7 @@
     "require": {
         "php": "^7.3",
         "agencycoda/mia-core-mezzio": "dev-main",
+        "agencycoda/mia-auth-mezzio": "dev-main",
         "agencycoda/mia-eloquent-mezzio": "dev-main"
     },
     "autoload": {
@@ -22,6 +23,10 @@
         {
             "type": "git",
             "url": "https://github.com/agencycoda/mia-core-mezzio.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/agencycoda/mia-auth-mezzio.git"
         },
         {
             "type": "git",
