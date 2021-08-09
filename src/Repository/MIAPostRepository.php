@@ -12,7 +12,7 @@ class MIAPostRepository
      */
     public static function fetchByConfigure(\Mia\Database\Query\Configure $configure)
     {
-        $query = MIAPost::select('mia_post.*');
+        $query = MIAPost::select('mia_post.*')->withCount('comments');
         
         if(!$configure->hasOrder()){
             $query->orderByRaw('id DESC');

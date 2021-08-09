@@ -2,6 +2,8 @@
 
 namespace Mia\Blog\Model;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 /**
  * Description of Model
  * @property int $id Notification ID
@@ -66,6 +68,16 @@ class MIAPost extends \Illuminate\Database\Eloquent\Model
     protected $table = 'mia_post';
 
     protected $casts = ['photo_featured' => 'array', 'photo_featured_mobile' => 'array'];
+
+    /**
+     * 
+     *
+     * @return HasMany
+     */
+    public function comments()
+    {
+        return $this->hasMany(MIAComment::class, 'post_id')->orderBy('created_at', 'desc');
+    }
 
     /**
      * 
