@@ -3,6 +3,7 @@
 namespace Mia\Blog\Handler;
 
 use Mia\Blog\Model\MIAPost;
+use Mia\Blog\Model\MIAPostCategory;
 use Mia\Core\Helper\StringHelper;
 
 /**
@@ -33,6 +34,11 @@ use Mia\Core\Helper\StringHelper;
 class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
 {
     /**
+     *
+     * @var boolean
+     */
+    protected $isNew = false;
+    /**
      * 
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @return \Psr\Http\Message\ResponseInterface
@@ -50,9 +56,11 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
         $item->photo_featured_mobile = $this->getParam($request, 'photo_featured_mobile', []);
         $item->is_featured = intval($this->getParam($request, 'is_featured', '0'));
         $item->status = intval($this->getParam($request, 'status', '0'));
-                
+
         try {
             $item->save();
+
+            $this->saveCategories($item, $this->getParam($request, 'categories', []));
         } catch (\Exception $exc) {
             return new \Mia\Core\Diactoros\MiaJsonErrorResponse(-2, $exc->getMessage());
         }
@@ -61,10 +69,25 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
         return new \Mia\Core\Diactoros\MiaJsonResponse($item->toArray());
     }
 
+    protected function saveCategories(MIAPost $post, $categories)
+    {
+        // Remove all Items
+        if(!$this->isNew){
+            MIAPostCategory::where('post_id', $post->id)->delete();
+        }
+        // For each objects
+        foreach($categories as $obj){
+            $row = new MIAPostCategory();
+            $row->category_id = $obj['id'];
+            $row->post_id = $post->id;
+            $row->save();
+        }
+    }
+
     /**
      * 
      * @param \Psr\Http\Message\ServerRequestInterface $request
-     * @return \App\Model\Team
+     * @return MIAPost
      */
     protected function getForEdit(\Psr\Http\Message\ServerRequestInterface $request)
     {
@@ -74,6 +97,7 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
         $item = MIAPost::find($itemId);
         // verificar si existe
         if($item === null){
+            $this->isNew = true;
             return new MIAPost();
         }
         // Devolvemos item para editar

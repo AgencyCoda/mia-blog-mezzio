@@ -78,6 +78,15 @@ class MIAPost extends \Illuminate\Database\Eloquent\Model
     {
         return $this->hasMany(MIAComment::class, 'post_id')->orderBy('created_at', 'desc');
     }
+    /**
+     * 
+     *
+     * @return HasMany
+     */
+    public function categories()
+    {
+        return $this->hasMany(MIAPostCategory::class, 'post_id');
+    }
 
     /**
      * 
