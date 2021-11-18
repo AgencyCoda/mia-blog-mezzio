@@ -96,6 +96,14 @@ class MIAPost extends \Illuminate\Database\Eloquent\Model
     {
         return $this->belongsTo(MIAUser::class, 'user_id');
     }
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function relateds()
+    {
+        return $this->hasManyThrough(MIAPost::class, MIAPostRelated::class, 'post_id', 'id', 'id', 'post_related_id');
+    }
 
     /**
      * 
