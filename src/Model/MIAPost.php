@@ -3,6 +3,7 @@
 namespace Mia\Blog\Model;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Mia\Auth\Model\MIAUser;
 
 /**
  * Description of Model
@@ -86,6 +87,14 @@ class MIAPost extends \Illuminate\Database\Eloquent\Model
     public function categories()
     {
         return $this->hasMany(MIAPostCategory::class, 'post_id');
+    }
+    /**
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator()
+    {
+        return $this->belongsTo(MIAUser::class, 'user_id');
     }
 
     /**
