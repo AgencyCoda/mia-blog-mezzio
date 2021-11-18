@@ -40,27 +40,27 @@ class FetchHandler extends \Mia\Core\Request\MiaRequestHandler
     {
         // Obtenemos ID si fue enviado
         $itemId = $this->getParam($request, 'id', '');
+        // Generate query
+        $query = MIAPost::where('id', $itemId);
         // Verify has withs in query
         $withs = $this->getParam($request, 'withs', '');
+        if($withs != ''){
+            // Convert to array
+            $with = explode(',', $withs);
+            // Apply
+            $query->with($with);
+        }
+        // Verify Has withs counts
         $countWiths = $this->getParam($request, 'count_withs', '');
         if($countWiths != ''){
             // Convert to array
-            $with = explode(',', $countWiths);
-            // Search item in DB
-            $item = MIAPost::with($with)->where('id', $itemId)->first();
-        } else if($withs != ''){
-            $query = MIAPost::where('id', $itemId);
-            // Convert to array
-            $withs = explode(',', $withs);
+            $withs = explode(',', $countWiths);
             foreach($withs as $wc){ 
                 $query->withCount($wc);
             }
-            // Search item in DB
-            $item = $query->first();
-        } else {
-            // Buscar si existe el tour en la DB
-            $item = MIAPost::find($itemId);
         }
+        // Search item in DB
+        $item = $query->first();
         // verificar si existe
         if($item === null){
             return new \Mia\Core\Diactoros\MiaJsonErrorResponse(1, 'This element not exist.');
