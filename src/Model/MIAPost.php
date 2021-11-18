@@ -94,7 +94,7 @@ class MIAPost extends \Illuminate\Database\Eloquent\Model
      */
     public function creator()
     {
-        return $this->belongsTo(MIAUser::class, 'user_id');
+        return $this->belongsTo(MIAUser::class, 'creator_id');
     }
     /**
      * 
