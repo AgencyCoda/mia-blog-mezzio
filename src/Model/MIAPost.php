@@ -63,6 +63,9 @@ class MIAPost extends \Illuminate\Database\Eloquent\Model
     const STATUS_PUBLISHED = 1;
     const STATUS_CANCELLED = 2;
 
+    const VISIBILITY_NOT_PUBLIC = 0;
+    const VISIBILITY_PUBLIC = 1;
+
     /**
      * Name of table
      */

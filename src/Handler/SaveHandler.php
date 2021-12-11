@@ -4,6 +4,7 @@ namespace Mia\Blog\Handler;
 
 use Mia\Blog\Model\MIAPost;
 use Mia\Blog\Model\MIAPostCategory;
+use Mia\Blog\Model\MIAPostRelated;
 use Mia\Core\Helper\StringHelper;
 
 /**
@@ -61,6 +62,7 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
             $item->save();
 
             $this->saveCategories($item, $this->getParam($request, 'categories', []));
+            $this->saveRelated($item, $this->getParam($request, 'relateds', []));
         } catch (\Exception $exc) {
             return new \Mia\Core\Diactoros\MiaJsonErrorResponse(-2, $exc->getMessage());
         }
@@ -79,6 +81,21 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
         foreach($categories as $obj){
             $row = new MIAPostCategory();
             $row->category_id = $obj['id'];
+            $row->post_id = $post->id;
+            $row->save();
+        }
+    }
+
+    protected function saveRelated(MIAPost $post, $posts)
+    {
+        // Remove all Items
+        if(!$this->isNew){
+            MIAPostRelated::where('post_id', $post->id)->delete();
+        }
+        // For each objects
+        foreach($posts as $obj){
+            $row = new MIAPostRelated();
+            $row->post_related_id = $obj['id'];
             $row->post_id = $post->id;
             $row->save();
         }
