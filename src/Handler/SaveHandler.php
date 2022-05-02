@@ -57,6 +57,10 @@ class SaveHandler extends \Mia\Core\Request\MiaRequestHandler
         $item->photo_featured_mobile = $this->getParam($request, 'photo_featured_mobile', []);
         $item->is_featured = intval($this->getParam($request, 'is_featured', '0'));
         $item->status = intval($this->getParam($request, 'status', '0'));
+        $item->seo_title = $this->getParam($request, 'seo_title', '');
+        $item->seo_description = $this->getParam($request, 'seo_description', '');
+        $item->seo_keywords = $this->getParam($request, 'seo_keywords', '');
+        $item->visibility = intval($this->getParam($request, 'visibility', '0'));
 
         try {
             $item->save();
